@@ -1,95 +1,213 @@
 # @znemz/cesium-navigation
 
-[![npm version](https://img.shields.io/npm/v/@znemz/cesium-navigation.svg)](https://www.npmjs.com/package/@znemz/cesium-navigation)
-[![npm downloads](http://img.shields.io/npm/dm/@znemz/cesium-navigation.svg)](https://www.npmjs.com/package/@znemz/cesium-navigation)
-[![Build Status](https://img.shields.io/travis/nmccready/cesium-navigation.svg?label=travis-ci)](https://travis-ci.org/nmccready/cesium-navigation)
-[![GitHub stars](https://img.shields.io/github/stars/nmccready/cesium-navigation.svg?style=social)](https://github.com/nmccready/cesium-navigation)
+[![npm version](https://badge.fury.io/js/%40znemz%2Fcesium-navigation.svg)](https://www.npmjs.com/package/@znemz/cesium-navigation)
+[![tests](https://github.com/brickhouse-tech/cesium-navigation/actions/workflows/tests.yml/badge.svg)](https://github.com/brickhouse-tech/cesium-navigation/actions/workflows/tests.yml)
 
-**Compass, zoom controls, and distance scale for [CesiumJS](https://cesium.com/) — no RequireJS required.**
+Cesium plugin that adds compass, navigator (zoom controls), and distance scale widgets to the map.
 
-A Cesium plugin that adds a user-friendly compass, navigator (zoom in/out), and distance scale to your Cesium map. This fork provides a modern, npm-publishable build that works with webpack, rollup, and other modern bundlers.
-
-![Cesium Navigation Demo](https://cesium.com/images/cesiumjs/cesium-widgets.jpg)
-
-## Install
-
-```bash
-npm install @znemz/cesium-navigation
-# or
-yarn add @znemz/cesium-navigation
-```
-
-## Quick Start
-
-```javascript
-import { Rectangle, Viewer } from 'cesium';
-
-const viewer = new Viewer('cesiumContainer');
-
-const options = {
-  enableCompass: true,
-  enableZoomControls: true,
-  enableDistanceLegend: true,
-  defaultResetView: Rectangle.fromDegrees(71, 3, 90, 14),
-};
-
-viewer.extend(window.viewerCesiumNavigationMixin, options);
-```
+**v5.0.0** — Fully modernized with TypeScript, Vite, and zero legacy dependencies!
 
 ## Features
 
-- **Compass** — visual compass with click-to-reset-north
-- **Zoom Controls** — intuitive zoom in/out buttons
-- **Distance Legend** — dynamic scale bar with configurable units
-- **Lock Controls** — programmatically lock/unlock navigation
-- **Customizable Units** — supports all [turf helper units](https://github.com/Turfjs/turf/blob/v5.1.6/packages/turf-helpers/index.d.ts#L20)
+- 🧭 **Compass** - Interactive compass for rotation and orientation
+- 🔍 **Zoom Controls** - In/out zoom buttons
+- 📏 **Distance Scale** - Dynamic distance legend
+- 🎯 **Reset View** - One-click return to default view
+- 📱 **Responsive** - Works on desktop and mobile
+- 🎨 **Customizable** - Configure which controls to display
+- 💪 **TypeScript** - Full type safety
+- 🌲 **Tree-shakeable** - ES modules with zero runtime dependencies
 
-## Options
+## Breaking Changes from v4.x
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `defaultResetView` | `Cartographic \| Rectangle` | — | Default view when resetting navigation |
-| `enableCompass` | `boolean` | `true` | Show/hide compass |
-| `enableZoomControls` | `boolean` | `true` | Show/hide zoom controls |
-| `enableDistanceLegend` | `boolean` | `true` | Show/hide distance legend |
-| `units` | `string` | `'kilometers'` | Distance units (turf helper units) |
-| `distanceLabelFormatter` | `function` | — | Custom label: `(distance, units) => string` |
+- **Requires Node >= 20**
+- **Requires Cesium >= 1.100**
+- Removed all legacy dependencies (Knockout.js, HammerJS, markdown-it)
+- Native ES modules only (no CommonJS)
+- TypeScript-first API
+- Removed `browser_` field from package.json
 
-## API
+## Installation
 
-### Destroy
-
-```js
-viewer.cesiumNavigation.destroy();
+```bash
+npm install @znemz/cesium-navigation cesium
 ```
 
-### Lock/Unlock Controls
+## Usage
 
-```js
-viewer.cesiumNavigation.setNavigationLocked(true);  // lock
-viewer.cesiumNavigation.setNavigationLocked(false); // unlock
+### ES Modules (Vite, webpack 5+)
+
+```typescript
+import * as Cesium from 'cesium';
+import { viewerCesiumNavigationMixin } from '@znemz/cesium-navigation';
+import '@znemz/cesium-navigation/style.css';
+
+const viewer = new Cesium.Viewer('cesiumContainer');
+viewer.extend(viewerCesiumNavigationMixin, {
+  enableCompass: true,
+  enableZoomControls: true,
+  enableDistanceLegend: true,
+  units: 'kilometers' // or 'miles', 'meters', etc.
+});
+```
+
+### Direct instantiation
+
+```typescript
+import { CesiumNavigation } from '@znemz/cesium-navigation';
+import '@znemz/cesium-navigation/style.css';
+
+const viewer = new Cesium.Viewer('cesiumContainer');
+const navigation = new CesiumNavigation(viewer, {
+  enableCompass: true,
+  enableZoomControls: true,
+  enableDistanceLegend: true,
+  units: 'kilometers',
+  defaultResetView: Cesium.Rectangle.fromDegrees(-180, -90, 180, 90)
+});
+
+// Later, clean up
+navigation.destroy();
+```
+
+### TypeScript
+
+Full TypeScript support with strict types:
+
+```typescript
+import type { ViewerWithCesiumNavigation } from '@znemz/cesium-navigation';
+
+const viewer = new Cesium.Viewer('cesiumContainer') as ViewerWithCesiumNavigation;
+viewer.extend(viewerCesiumNavigationMixin);
+
+// Type-safe access
+viewer.cesiumNavigation.setNavigationLocked(true);
+```
+
+## Configuration Options
+
+```typescript
+interface CesiumNavigationOptions {
+  /** Enable or disable the compass control (default: true) */
+  enableCompass?: boolean;
+  
+  /** Enable or disable the zoom controls (default: true) */
+  enableZoomControls?: boolean;
+  
+  /** Enable or disable the distance legend (default: true) */
+  enableDistanceLegend?: boolean;
+  
+  /** Units for distance legend (default: 'kilometers') */
+  units?: 'kilometers' | 'meters' | 'miles' | 'feet' | string;
+  
+  /** Default reset view (Rectangle or Cartographic) */
+  defaultResetView?: Cesium.Rectangle | Cesium.Cartographic;
+  
+  /** Custom distance label formatter */
+  distanceLabelFormatter?: (distance: number, units: string) => string;
+}
+```
+
+## Bundler Setup
+
+### Vite
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite';
+import cesium from 'vite-plugin-cesium';
+
+export default defineConfig({
+  plugins: [cesium()]
+});
+```
+
+### Webpack 5
+
+```javascript
+// webpack.config.js
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+
+module.exports = {
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'node_modules/cesium/Build/Cesium/Workers',
+          to: 'cesium/Workers'
+        },
+        {
+          from: 'node_modules/cesium/Build/Cesium/ThirdParty',
+          to: 'cesium/ThirdParty'
+        },
+        {
+          from: 'node_modules/cesium/Build/Cesium/Assets',
+          to: 'cesium/Assets'
+        },
+        {
+          from: 'node_modules/cesium/Build/Cesium/Widgets',
+          to: 'cesium/Widgets'
+        }
+      ]
+    }),
+    new webpack.DefinePlugin({
+      CESIUM_BASE_URL: JSON.stringify('/cesium')
+    })
+  ]
+};
 ```
 
 ## Development
 
 ```bash
-yarn install
-yarn start   # dev server
-yarn build   # production build
+# Install dependencies
+npm install
+
+# Run type checking
+npm run type-check
+
+# Build
+npm run build
+
+# Run tests
+npm test
+
+# Lint
+npm run lint
+npm run lint:fix
 ```
 
-## Background
+## Migration from v4.x
 
-Based on navigation UI from [TerriaJS](https://github.com/TerriaJS), adapted to work as a standalone Cesium plugin. The original terriajs code used CommonJS/Browserify — this fork converts everything to work with modern module bundlers.
+The API surface is largely the same, but with modernized internals:
 
-See the [Examples](./Examples/index.html) directory for working demos.
+**Before (v4.x):**
+```javascript
+const viewer = new Cesium.Viewer('cesiumContainer');
+viewer.extend(viewerCesiumNavigationMixin);
+```
+
+**After (v5.x):**
+```typescript
+import { viewerCesiumNavigationMixin } from '@znemz/cesium-navigation';
+import '@znemz/cesium-navigation/style.css';
+
+const viewer = new Cesium.Viewer('cesiumContainer');
+viewer.extend(viewerCesiumNavigationMixin);
+```
+
+## License
+
+Apache-2.0
+
+## Credits
+
+- Original author: Alberto Acevedo
+- Maintainer: Nick McCready (@nmccready)
+- Sponsor: [Brickhouse Technologies](https://github.com/brickhouse-tech)
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## Sponsor
-
-If you find this project useful, consider [sponsoring @nmccready](https://github.com/sponsors/nmccready) to support ongoing maintenance and development. ❤️
-
-## [License](./LICENSE)
+Issues and pull requests welcome! Please use conventional commits for commit messages.

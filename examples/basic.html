@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cesium Navigation — Basic Example</title>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Cesium.js"></script>
+  <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Widgets/widgets.css">
+  <link rel="stylesheet" href="../dist/cesium-navigation.css">
+  <script src="../dist/cesium-navigation.umd.js"></script>
+  <style>
+    html, body, #cesiumContainer {
+      width: 100%; height: 100%;
+      margin: 0; padding: 0; overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MWE2NTU1Yy1lYTE0LTQ3NjMtYTUzMi1mNDQ0Y2VmNjcwZjciLCJpZCI6MzY1Niwic2NvcGVzIjpbImFzciIsImdjIl0sImlhdCI6MTUzODQ0MDc0Mn0.zCOKuoyQpv5oqoo21EP48ool0959nAAJC745-SjaP3k';
+
+    const viewer = new Cesium.Viewer('cesiumContainer');
+
+    // Add navigation controls with defaults
+    const { viewerCesiumNavigationMixin } = window.CesiumNavigation;
+    viewer.extend(viewerCesiumNavigationMixin, {});
+  </script>
+</body>
+</html>

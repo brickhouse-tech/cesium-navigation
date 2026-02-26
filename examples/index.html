@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cesium Navigation — Examples</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      color: #1a1a1a;
+    }
+    h1 { margin-bottom: 0.5rem; }
+    .badge { font-size: 0.85rem; color: #666; }
+    .examples { list-style: none; padding: 0; margin-top: 2rem; }
+    .examples li {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+    }
+    .examples a { font-size: 1.1rem; font-weight: 600; text-decoration: none; color: #0366d6; }
+    .examples a:hover { text-decoration: underline; }
+    .examples p { margin: 0.5rem 0 0; color: #555; font-size: 0.9rem; }
+    code { background: #f5f5f5; padding: 0.15em 0.4em; border-radius: 3px; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+  <h1>@znemz/cesium-navigation</h1>
+  <p class="badge">Compass, zoom controls, and distance scale for CesiumJS</p>
+
+  <ul class="examples">
+    <li>
+      <a href="basic.html">Basic Example</a>
+      <p>Default configuration — compass, zoom, distance legend with all defaults.</p>
+    </li>
+    <li>
+      <a href="options.html">Custom Options</a>
+      <p>Customized compass, nautical miles, disabled zoom controls.</p>
+    </li>
+    <li>
+      <a href="standalone.html">Standalone (UMD)</a>
+      <p>No bundler — loads via <code>&lt;script&gt;</code> tags using the UMD build. Works anywhere.</p>
+    </li>
+  </ul>
+
+  <p style="margin-top: 2rem; color: #888; font-size: 0.85rem;">
+    Source: <a href="https://github.com/brickhouse-tech/cesium-navigation">github.com/brickhouse-tech/cesium-navigation</a>
+  </p>
+</body>
+</html>

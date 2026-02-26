@@ -1,8 +1,0 @@
-{
-  "presets": [["env", { "modules": false }]],
-  "sourceMaps": true,
-  "retainLines": true,
-  "env": { "test": { "presets": "env" }, "webpack": { "presets": "env" } },
-  "plugins": ["transform-object-rest-spread", "transform-class-properties"],
-  "ignore": ["node_modules/**"]
-}

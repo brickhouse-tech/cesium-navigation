@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cesium Navigation — Custom Options</title>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Cesium.js"></script>
+  <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Widgets/widgets.css">
+  <link rel="stylesheet" href="../dist/cesium-navigation.css">
+  <script src="../dist/cesium-navigation.umd.js"></script>
+  <style>
+    html, body, #cesiumContainer {
+      width: 100%; height: 100%;
+      margin: 0; padding: 0; overflow: hidden;
+    }
+    .info-panel {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-family: sans-serif;
+      font-size: 13px;
+      z-index: 999;
+    }
+    .info-panel h3 { margin: 0 0 8px; font-size: 14px; }
+    .info-panel ul { margin: 0; padding-left: 16px; }
+    .info-panel li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <div class="info-panel">
+    <h3>Custom Options</h3>
+    <ul>
+      <li>Distance legend: nautical miles</li>
+      <li>Compass: outer ring orbit enabled</li>
+      <li>Zoom controls: disabled</li>
+    </ul>
+  </div>
+  <script>
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MWE2NTU1Yy1lYTE0LTQ3NjMtYTUzMi1mNDQ0Y2VmNjcwZjciLCJpZCI6MzY1Niwic2NvcGVzIjpbImFzciIsImdjIl0sImlhdCI6MTUzODQ0MDc0Mn0.zCOKuoyQpv5oqoo21EP48ool0959nAAJC745-SjaP3k';
+
+    const viewer = new Cesium.Viewer('cesiumContainer');
+
+    const { viewerCesiumNavigationMixin } = window.CesiumNavigation;
+    viewer.extend(viewerCesiumNavigationMixin, {
+      enableCompass: true,
+      enableZoomControls: false,
+      enableDistanceLegend: true,
+      enableCompassOuterRing: true,
+      units: 'nauticalmiles',
+    });
+  </script>
+</body>
+</html>

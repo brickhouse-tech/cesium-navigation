@@ -1,93 +1,78 @@
 {
   "name": "@znemz/cesium-navigation",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Cesium plugin that adds a compass, navigator, and distance scale to the map",
+  "type": "module",
   "keywords": [
     "cesium",
     "compass",
     "distance",
     "navigation",
     "navigator",
-    "scale"
+    "scale",
+    "typescript"
   ],
-  "homepage": "https://github.com/nmccready/cesium-navigation#readme",
+  "homepage": "https://github.com/brickhouse-tech/cesium-navigation#readme",
   "bugs": {
-    "url": "https://github.com/nmccready/cesium-navigation/issues"
+    "url": "https://github.com/brickhouse-tech/cesium-navigation/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nmccready/cesium-navigation.git"
+    "url": "git+https://github.com/brickhouse-tech/cesium-navigation.git"
   },
   "license": "Apache-2.0",
   "author": "Alberto Acevedo",
+  "contributors": [
+    "Nick McCready <nemtcan@gmail.com>"
+  ],
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/esm.js",
-  "scripts": {
-    "prebuild": "yarn sort-package-json & yarn clean",
-    "build": "rollup -c",
-    "build:all": "yarn clean && yarn build && yarn build:example",
-    "build:example": "webpack --config Examples/webpack.config.js ",
-    "clean": "rm -rf dist Examples/dist",
-    "clean:example": "rm -rf Examples/dist",
-    "format": "prettier-eslint --config --write '{Source,test,Test}/**/*.js'",
-    "lint": "eslint --fix '{Source,Test,test}/**/*.js'",
-    "prepublishOnly": "yarn build:all",
-    "s": "yarn serve",
-    "serve": "yarn http-server .",
-    "start": "yarn s & yarn rollup -c -w",
-    "pretest": "yarn build",
-    "test": "yarn lint"
+  "main": "./dist/cesium-navigation.umd.js",
+  "module": "./dist/cesium-navigation.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/cesium-navigation.js",
+      "require": "./dist/cesium-navigation.umd.js"
+    },
+    "./style.css": "./dist/style.css"
   },
-  "dependencies": {
-    "cesium": ">=1.48",
-    "hammerjs": "^2.0.8",
-    "knockout": "^3.4.0",
-    "knockout-es5": "^0.4.4",
-    "markdown-it": "^7.0.0",
-    "markdown-it-sanitizer": "^0.4.1"
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "peerDependencies": {
+    "cesium": ">=1.100"
   },
   "devDependencies": {
-    "@turf/helpers": "^6.1.4",
-    "@znemz/cesium-webpack-config": "0.1.2",
-    "@znemz/eslint-config-react": "^0.0.3",
-    "@znemz/prettier-config": "^0.0.1",
-    "babel-cli": "6",
-    "babel-core": "6",
-    "babel-eslint": "^8.2.2",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-class-properties": "6",
-    "babel-plugin-transform-object-rest-spread": "6",
-    "babel-preset-env": "^1.7",
-    "css-loader": "^1.0.1",
-    "eslint": "^4.16.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-loader": "^1.9.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
-    "http-server": "^0.11.1",
-    "jest": "23",
-    "jest-extended": "^0.8",
-    "prettier": "^1.15.2",
-    "rollup": "^0.67.1",
-    "rollup-plugin-babel": "^3",
-    "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-less": "^0.1.5",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "sort-package-json": "^1.15.0",
-    "string-replace-loader": "^2.1.1",
-    "style-loader": "^0.23.1",
-    "webpack": "4",
-    "webpack-cli": "^3.1.2"
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
+    "@eslint/js": "^9.17.0",
+    "@turf/helpers": "^7.1.0",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "cesium": "^1.124.0",
+    "commit-and-tag-version": "^12.5.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.13.0",
+    "jsdom": "^28.1.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.5",
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^4.0.18"
   },
-  "authors": [
-    "Alberto Acevedo",
-    "Nick McCready"
-  ],
-  "browser_": "dist/browser.js",
-  "mainCss": "dist/index.css"
+  "engines": {
+    "node": ">=20"
+  }
 }
