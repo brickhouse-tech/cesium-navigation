@@ -54,6 +54,8 @@
     "cesium": ">=1.100"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "@eslint/js": "^9.17.0",
     "@turf/helpers": "^7.1.0",
     "@types/node": "^22.10.2",
