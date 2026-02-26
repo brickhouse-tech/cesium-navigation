@@ -6,9 +6,23 @@ import {
   getTimestamp,
   EventHelper
 } from 'cesium';
-import { convertLength } from '@turf/helpers';
 import * as utils from '../core/utils';
 import type { CesiumNavigationOptions, TerraWrapper } from '../types';
+
+type Units = 'meters' | 'kilometers' | 'miles' | 'feet' | 'nauticalmiles';
+
+const UNIT_FACTORS: Record<Units, number> = {
+  meters: 1,
+  kilometers: 0.001,
+  miles: 0.000621371,
+  feet: 3.28084,
+  nauticalmiles: 0.000539957,
+};
+
+function convertLength(value: number, from: Units, to: Units): number {
+  const meters = value / UNIT_FACTORS[from];
+  return meters * UNIT_FACTORS[to];
+}
 
 const geodesic = new EllipsoidGeodesic();
 
@@ -163,7 +177,7 @@ export class DistanceLegendViewModel {
 
     if (distance !== undefined) {
       const units = this.options.units || 'kilometers';
-      const convertedDistance = convertLength(distance, 'meters', units as any);
+      const convertedDistance = convertLength(distance, 'meters', units as Units);
       const formatter = this.options.distanceLabelFormatter || utils.distanceLabelFormatter;
       const label = formatter(convertedDistance, units);
 

@@ -48,7 +48,7 @@ export class ZoomNavigationControl extends NavigationControl {
       }
 
       const { camera } = scene;
-      let orientation: any;
+      let orientation: Record<string, unknown>;
 
       switch (scene.mode) {
         case SceneMode.MORPHING:
@@ -61,7 +61,7 @@ export class ZoomNavigationControl extends NavigationControl {
           break;
           
         default: {
-          let focus: any;
+          let focus: Cartesian3 | undefined;
 
           if (defined(this.terria.trackedEntity)) {
             focus = new Cartesian3();
