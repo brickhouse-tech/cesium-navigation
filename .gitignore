@@ -3,7 +3,7 @@ node_modules
 target
 project/target
 .cache
-*.lock
+yarn.lock
 coverage
 dist
 Assets
