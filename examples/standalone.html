@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cesium Navigation — Standalone (UMD)</title>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Cesium.js"></script>
+  <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Widgets/widgets.css">
+  <!--
+    Load the UMD build and CSS directly.
+    In production, use CDN URLs like:
+      https://unpkg.com/@znemz/cesium-navigation@5/dist/cesium-navigation.umd.js
+      https://unpkg.com/@znemz/cesium-navigation@5/dist/cesium-navigation.css
+  -->
+  <link rel="stylesheet" href="../dist/cesium-navigation.css">
+  <script src="../dist/cesium-navigation.umd.js"></script>
+  <style>
+    html, body, #cesiumContainer {
+      width: 100%; height: 100%;
+      margin: 0; padding: 0; overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    'use strict';
+
+    // Use the Cesium Ion demo token
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MWE2NTU1Yy1lYTE0LTQ3NjMtYTUzMi1mNDQ0Y2VmNjcwZjciLCJpZCI6MzY1Niwic2NvcGVzIjpbImFzciIsImdjIl0sImlhdCI6MTUzODQ0MDc0Mn0.zCOKuoyQpv5oqoo21EP48ool0959nAAJC745-SjaP3k';
+
+    const viewer = new Cesium.Viewer('cesiumContainer');
+
+    // The UMD build exposes window.CesiumNavigation
+    const { viewerCesiumNavigationMixin } = window.CesiumNavigation;
+
+    if (!viewerCesiumNavigationMixin) {
+      console.error('CesiumNavigation not loaded — check script path');
+    } else {
+      viewer.extend(viewerCesiumNavigationMixin, {});
+
+      // You can access the navigation instance:
+      // viewer.cesiumNavigation
+      console.log('Navigation controls loaded:', !!viewer.cesiumNavigation);
+    }
+  </script>
+</body>
+</html>
