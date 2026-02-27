@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [6.0.1](https://github.com/brickhouse-tech/cesium-navigation/compare/v6.0.0...v6.0.1) (2026-02-27)
+
+
+### Bug Fixes
+
+* **ci:** add package-lock.json for npm ci in publish workflow ([1d77e7d](https://github.com/brickhouse-tech/cesium-navigation/commit/1d77e7d7b0994ec449bb3eb055c671b6b429d7c2))
+
 ## [6.0.0](https://github.com/brickhouse-tech/cesium-navigation/compare/v1.1.7...v6.0.0) (2026-02-26)
 
 
