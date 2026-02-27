@@ -5,7 +5,7 @@
 
 Cesium plugin that adds compass, navigator (zoom controls), and distance scale widgets to the map.
 
-**v5.0.0** — Fully modernized with TypeScript, Vite, and zero legacy dependencies!
+**v6.X** — Fully modernized with TypeScript, Vite, and zero legacy dependencies!
 
 ## Features
 
