@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [6.0.7](https://github.com/brickhouse-tech/cesium-navigation/compare/v6.0.6...v6.0.7) (2026-06-16)
+
 ## [6.0.6](https://github.com/brickhouse-tech/cesium-navigation/compare/v6.0.5...v6.0.6) (2026-05-17)
 
 ## [6.0.5](https://github.com/brickhouse-tech/cesium-navigation/compare/v6.0.4...v6.0.5) (2026-04-04)
